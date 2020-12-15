@@ -24,7 +24,7 @@ module.exports = {
         url: "mongodb://localhost"
     },
     fb: {
-        appId: '',
-        appSecret: ''
+        appId: '1275959742777184',
+        appSecret: '84d6c2e67d66fd8f3e3e7e169949dc12'
     }
 };
