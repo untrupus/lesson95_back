@@ -6,7 +6,11 @@ const auth = require('../middleware/auth');
 const permit = require("../middleware/permit");
 
 router.get('/', async (req, res) => {
-    const result = await Cocktail.find();
+    let query;
+    if (req.query.user) {
+        query = {user: req.query.user}
+    }
+    const result = await Cocktail.find(query);
     if (result) {
         res.send(result);
     } else {
