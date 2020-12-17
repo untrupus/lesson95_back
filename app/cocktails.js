@@ -30,5 +30,26 @@ router.post('/', [auth, config.upload.single("image")], async (req, res) => {
     }
 });
 
+router.delete('/:id', [auth, permit("admin")], async (req, res) => {
+    const result = await Cocktail.findByIdAndRemove({_id: req.params.id});
+    if (result) {
+        res.send("Cocktail removed");
+    } else {
+        res.sendStatus(404);
+    }
+});
+
+router.patch('/:id', [auth, permit("admin")], async (req, res) => {
+    if (req.body.user) {
+        res.send("You can`t change user");
+    } else {
+        const result = await Cocktail.findByIdAndUpdate(req.params.id, req.body);
+        if (result) {
+            res.send('Success');
+        } else {
+            res.sendStatus(404);
+        }
+    }
+});
 
 module.exports = router;
