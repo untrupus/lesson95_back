@@ -56,4 +56,27 @@ router.patch('/:id', [auth, permit("admin")], async (req, res) => {
     }
 });
 
+router.put("/:id", auth, async (req, res) => {
+    const newRate = {
+        user: req.user._id,
+        rating: req.body.rating
+    }
+    const result = await Cocktail.findById({_id: req.params.id});
+    let rating = result.rating.find(index => index.user.equals(req.user._id));
+
+    if (!rating) {
+        result.rating.push(newRate);
+    } else {
+        rating.rating = req.body.rating;
+    }
+
+    const cocktail = new Cocktail(result);
+    if (result) {
+        await cocktail.save();
+        res.send(cocktail);
+    } else {
+        res.sendStatus(404);
+    }
+});
+
 module.exports = router;

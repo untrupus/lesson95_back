@@ -22,7 +22,8 @@ const CocktailSchema = new Schema({
         type: String,
         required: true
     },
-    ingredients: []
+    ingredients: [],
+    rating: []
 });
 
 const Cocktail = mongoose.model("Cocktail", CocktailSchema);
